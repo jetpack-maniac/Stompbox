@@ -13,6 +13,11 @@ enclosureThickness = 2; // this is the thickness of each side
 roundness = 2; // this is degree of roundness the corners get
 faces = 40; // this is how detailed the curved edges get
 
+screwSize = 3.4;
+screwLength = 10;
+
+cornerThickness = 1.25;
+
 // This covers the inputs and outputs of the box
 jackSize = 0;
 leftSideJacks = 0;
@@ -94,7 +99,6 @@ module mainBodyCut(){
 module supportConstructor(type){
 
   if(type == "corner"){
-    cornerThickness = 1.25;
     union(){
       translate([0, 4*cornerThickness, 0])
         cube([4*cornerThickness, cornerThickness, enclosureHeight - cornerThickness]);
@@ -121,6 +125,14 @@ module interiorConstructor(){
   translate([enclosureThickness, enclosureWidth - enclosureThickness, 0])
   rotate([0,0,270])
     supportConstructor("corner");
+}
+
+module screwTapping(type){
+  // these two cut exterior screwhead holes in the lid
+  if(type == "case"){
+
+  }
+
 }
 
 // Final Assembly
