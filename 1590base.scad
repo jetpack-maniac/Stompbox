@@ -35,6 +35,7 @@ topRowVerticalAlign = 90;  // percentage of shift up, 90 is close to the top
 midRowVerticalAlign = 75; // percentage of shift up, 75 is between the top and center
 bottomRowVerticalAlign = 60; // percentage of shift up, 60 is just above center
 ledVerticalAlign = 100; // percentage of shift up, 100 is on the edge
+switchVerticalAlign = 20; // percentage of shift up, 20 is near the bottom
 
 // The horizontal align shifts the rows side to side.  WIP/Unused.
 /*topRowHorizontalAlign = 50; // percentage of shift side to side, 50 is centered
@@ -46,6 +47,7 @@ midRowHoleSize = 7.5; // mid row knob hole in mm, this is the standard size for 
 bottomRowHoleSize = 7.5; // bottom row knob hole in mm, this is the standard size for pots
 switchHoleSize = 12; // the expected size in mm for standard footswitches
 ledHoleSize = 5; // LED holes in mm, this is the normal size for LEDs
+dcHoleSize = 12; // Typical DC jack size
 
 
 // variables used in the script
@@ -202,6 +204,15 @@ module holePunch(){
     rotate([90,0,0])
       cylinder(d = jackSize, h = enclosureThickness + edge);
   }
+
+  for(switch = [1:switchHoles]){
+    translate([topLength*(switchVerticalAlign/100) + edge/2, (topWidth + 2*edge)*(switch/(switchHoles+1)), enclosureHeight - enclosureThickness - edge])
+      cylinder(d = switchHoleSize, h = enclosureThickness + edge);
+  }
+
+  translate([enclosureLength, enclosureWidth/2, (enclosureHeight - edge)/2])
+  rotate([0,270,0])
+    cylinder(d = dcHoleSize, h = enclosureThickness + edge);
 }
 
 // Final Assembly
