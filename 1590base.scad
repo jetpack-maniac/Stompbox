@@ -18,9 +18,10 @@ jackSize = 0;
 leftSideJacks = 0;
 rightSideJacks = 0;
 
-module enclosureBase(){
+// variables used in the script
+edge = roundness*enclosureThickness;
 
-  edge = roundness*enclosureThickness;
+module enclosureBase(){
 
   // draw the shape out, cut the corners, cut screw holes
   difference(){
@@ -90,9 +91,29 @@ module mainBodyCut(){
     cube([enclosureLength - 2*enclosureThickness, enclosureWidth - 2*enclosureThickness, enclosureHeight - 2*enclosureThickness]);
 }
 
-module supportConstructor(){
+module supportConstructor(type){
+
+  if(type == "corner"){
+    intersection(){
+        union(){
+          cube([]);
+          cube([]);
+          cylinder(r = 2*edge);
+      };
+      cylinder();
+    }
+  }
+}
+
+
+module interiorConstructor(){
 
   // this adds the corner posts and requests screw tapping on them
+
+  translate([3*enclosureThickness, 3*enclosureThickness, 0])
+     supportConstructor("corner");
+
+
 
 }
 
