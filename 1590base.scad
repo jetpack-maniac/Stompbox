@@ -30,12 +30,14 @@ bottomRowHoles = 2;
 switchHoles = 1;
 ledHoles = 2;
 
-topRowHorizontalAlign = 50; // percentage of shift side to side, 50 is centered
-bottomRowHorizontalAlign = 50; // percentage of shift side to side, 50 is centered
 topRowVerticalAlign = 90;  // percentage of shift up, 80 is close to the top
 bottomRowVerticalAlign = 70; // percentage of shift up, 60 is just above center
-ledHorizontalAlign = 50; // percentage of shift side to side, 50 is centered
 ledVerticalAlign = 100; // percentage of shift up, 100 is on the edge
+
+// The horizontal align shifts the rows side to side.  WIP/Unused.
+/*topRowHorizontalAlign = 50; // percentage of shift side to side, 50 is centered
+bottomRowHorizontalAlign = 50; // percentage of shift side to side, 50 is centered
+ledHorizontalAlign = 50; // percentage of shift side to side, 50 is centered*/
 
 topRowHoleSize = 10; // top row knob hole in mm
 bottomRowHoleSize = 10; // bottom row knob hole in mm
