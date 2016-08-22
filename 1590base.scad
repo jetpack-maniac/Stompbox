@@ -19,9 +19,9 @@ screwLength = 10;
 cornerThickness = 1.25;
 
 // This covers the inputs and outputs of the box
-jackSize = 0;
-leftSideJacks = 0;
-rightSideJacks = 0;
+jackSize = 10;  // 10mm is close to 3/8", which is the proper hole for 1/4" jacks
+leftSideJacks = 2;
+rightSideJacks = 1;
 
 // this covers the knobs and switches used
 // two rows of knobs are created and one row of switches
@@ -39,9 +39,10 @@ ledVerticalAlign = 100; // percentage of shift up, 100 is on the edge
 bottomRowHorizontalAlign = 50; // percentage of shift side to side, 50 is centered
 ledHorizontalAlign = 50; // percentage of shift side to side, 50 is centered*/
 
-topRowHoleSize = 10; // top row knob hole in mm
-bottomRowHoleSize = 10; // bottom row knob hole in mm
-ledHoleSize = 3; // LED holes in mm
+topRowHoleSize = 7.5; // top row knob hole in mm, this is the standard size
+bottomRowHoleSize = 7.5; // bottom row knob hole in mm, this is the standard
+switchHoleSize = 12; // the expected size in mm for standard footswitches
+ledHoleSize = 5; // LED holes in mm, this is the normal size
 
 
 // variables used in the script
