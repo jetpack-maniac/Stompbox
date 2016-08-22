@@ -83,6 +83,22 @@ module enclosureBase(){
 
 }
 
+module mainBodyCut(){
+
+  // cuts the interior open
+  translate([enclosureThickness, enclosureThickness, 0])
+    cube([enclosureLength - 2*enclosureThickness, enclosureWidth - 2*enclosureThickness, enclosureHeight - 2*enclosureThickness]);
+}
+
+module supportConstructor(){
+
+  // this adds the corner posts and requests screw tapping on them
+
+}
+
 // Final Assembly
 
-enclosureBase();
+difference(){
+  enclosureBase();
+  mainBodyCut();
+}
