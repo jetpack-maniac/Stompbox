@@ -13,8 +13,11 @@ enclosureThickness = 2; // this is the thickness of each side
 roundness = 2; // this is degree of roundness the corners get
 faces = 40; // this is how detailed the curved edges get
 
-screwSize = 3.4;
+screwSize = 3;
 screwLength = 10;
+screwHeadLength = 10;
+screwHeadDiameter = 8;
+screwType = "curved"; // Curved or cylinder head shapes
 
 cornerThickness = 1.25;
 
@@ -94,17 +97,34 @@ module excessBottomTrim(){
     cube([enclosureLength, enclosureWidth, edge]);
 }
 
+module screwHead(type){
+  if(type=="curved"){
+    union(){
+      cylinder(h = screwLength, d = screwSize, $fn = faces);
+      translate([0, 0, enclosureHeight - edge])
+        cylinder(h = screwHeadLength, d1 = screwSize, d2 = screwHeadDiameter, $fn = faces);
+    }
+  }
+  else if(type=="cylinder"){
+    union(){
+      cylinder(h = screwLength, d = screwSize, $fn = faces);
+      translate([0, 0, enclosureHeight - edge])
+        cylinder(h = screwHeadLength, d = screwHeadDiameter, $fn = faces);
+    }
+  }
+}
+
 module screwTapping(type){
   // these two cut exterior screwhead holes in the lid
   if(type == "case"){
     translate([enclosureThickness + 2*cornerThickness, enclosureThickness + 2*cornerThickness, 0])
-      cylinder(d = screwSize, h = screwLength, $fn = faces);
+      screwHead(screwType);
     translate([enclosureLength - enclosureThickness - 2*cornerThickness, enclosureThickness + 2*cornerThickness,  0])
-      cylinder(d = screwSize, h = screwLength, $fn = faces);
+      screwHead(screwType);
     translate([enclosureLength - enclosureThickness - 2*cornerThickness, enclosureWidth - enclosureThickness - 2*cornerThickness, 0])
-      cylinder(d = screwSize, h = screwLength, $fn = faces);
+      screwHead(screwType);
     translate([enclosureThickness + 2*cornerThickness, enclosureWidth - enclosureThickness - 2*cornerThickness, 0])
-      cylinder(d = screwSize, h = screwLength, $fn = faces);
+      screwHead(screwType);
   }
 
 }
