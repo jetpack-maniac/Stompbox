@@ -130,7 +130,14 @@ module interiorConstructor(){
 module screwTapping(type){
   // these two cut exterior screwhead holes in the lid
   if(type == "case"){
-
+    translate([enclosureThickness + 2*cornerThickness, enclosureThickness + 2*cornerThickness, 0])
+      cylinder(d = screwSize, h = screwLength, $fn = faces);
+    translate([enclosureLength - enclosureThickness - 2*cornerThickness, enclosureThickness + 2*cornerThickness,  0])
+      cylinder(d = screwSize, h = screwLength, $fn = faces);
+    translate([enclosureLength - enclosureThickness - 2*cornerThickness, enclosureWidth - enclosureThickness - 2*cornerThickness, 0])
+      cylinder(d = screwSize, h = screwLength, $fn = faces);
+    translate([enclosureThickness + 2*cornerThickness, enclosureWidth - enclosureThickness - 2*cornerThickness, 0])
+      cylinder(d = screwSize, h = screwLength, $fn = faces);
   }
 
 }
@@ -142,4 +149,7 @@ difference(){
   mainBodyCut();
 }
 
-interiorConstructor();
+difference(){
+  interiorConstructor();
+  screwTapping("case");
+}
