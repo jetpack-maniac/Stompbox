@@ -17,7 +17,14 @@ screwSize = 3;
 screwLength = 10;
 screwHeadLength = 10;
 screwHeadDiameter = 8;
-screwType = "curved"; // Curved or cylinder head shapes
+
+// countersunk screws (angled) v. cheese head screws (straight sides)
+// \    /     |   |
+//  \ /       |   |
+//  ||         ||
+//  ||         ||
+
+screwType = "countersunk"; // see above diagram
 
 cornerThickness = 1.25;
 
@@ -98,14 +105,14 @@ module excessBottomTrim(){
 }
 
 module screwHead(type){
-  if(type=="curved"){
+  if(type=="countersunk"){
     union(){
       cylinder(h = screwLength, d = screwSize, $fn = faces);
       translate([0, 0, enclosureHeight - edge])
         cylinder(h = screwHeadLength, d1 = screwSize, d2 = screwHeadDiameter, $fn = faces);
     }
   }
-  else if(type=="cylinder"){
+  else if(type=="cheese head"){
     union(){
       cylinder(h = screwLength, d = screwSize, $fn = faces);
       translate([0, 0, enclosureHeight - edge])
