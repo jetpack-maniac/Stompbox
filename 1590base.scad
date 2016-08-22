@@ -190,6 +190,18 @@ module holePunch(){
     translate([topLength*(ledVerticalAlign/100) + edge/2, (topWidth + 2*edge)*(ledHole/(ledHoles+1)), enclosureHeight - enclosureThickness - edge])
       cylinder(d = ledHoleSize, h = enclosureThickness + edge, $fn = faces);
   }
+
+  for(input = [1:leftSideJacks]){
+    translate([(topLength + edge)*(input/(leftSideJacks+1)), 0, (enclosureHeight - edge)/2])
+    rotate([270,0,0])
+      cylinder(d = jackSize, h = enclosureThickness + edge);
+  }
+
+  for(output = [1:rightSideJacks]){
+    translate([(topLength + edge)*(output/(rightSideJacks+1)), enclosureWidth, (enclosureHeight - edge)/2])
+    rotate([90,0,0])
+      cylinder(d = jackSize, h = enclosureThickness + edge);
+  }
 }
 
 // Final Assembly
