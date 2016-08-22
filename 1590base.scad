@@ -23,8 +23,25 @@ jackSize = 0;
 leftSideJacks = 0;
 rightSideJacks = 0;
 
+// this covers the knobs and switches used
+// two rows of knobs are created and one row of switches
+topRowHoles = 2;
+bottomRowHoles = 2;
+switchHoles = 1;
+
+topRowHorizontalAlign = 50; // percentage of shift side to side, 50 is centered
+bottomRowHorizontalAlign = 50; // percentage of shift side to side, 50 is centered
+topRowVerticalAlign = 90;  // percentage of shift up, 80 is close to the top
+bottomRowVerticalAlign = 70; // percentage of shift up, 60 is just above center
+
+topRowHoleSize = 10; // top row knob hole in mm
+bottomRowHoleSize = 10; // bottom row knob hole in mm
+
+
 // variables used in the script
 edge = roundness*enclosureThickness;
+topLength = enclosureLength - 2*edge;
+topWidth = enclosureWidth - 2*edge;
 
 module enclosureBase(){
 
@@ -142,11 +159,25 @@ module screwTapping(type){
 
 }
 
+module holePunch(){
+  // this cuts the knob and switch holes in the case
+  for(topHole = [1:topRowHoles]){
+    translate([topLength*(topRowVerticalAlign/100), topWidth*((topRowHorizontalAlign/100)*topHole/topRowHoles), enclosureHeight - enclosureThickness - edge])
+      cylinder(d = topRowHoleSize, h = enclosureThickness + edge);
+  }
+
+  for(bottomHole = [1:bottomRowHoles]){
+    translate([topLength*(bottomRowVerticalAlign/100), topWidth*((bottomRowHorizontalAlign/100)*bottomHole/topRowHoles), enclosureHeight - enclosureThickness - edge])
+      cylinder(d = topRowHoleSize, h = enclosureThickness + edge);
+  }
+}
+
 // Final Assembly
 
 difference(){
   enclosureBase();
   mainBodyCut();
+  holePunch();
 }
 
 difference(){
