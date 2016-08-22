@@ -94,13 +94,13 @@ module mainBodyCut(){
 module supportConstructor(type){
 
   if(type == "corner"){
-    intersection(){
-        union(){
-          cube([]);
-          cube([]);
-          cylinder(r = 2*edge);
-      };
-      cylinder();
+    cornerThickness = 2;
+    union(){
+      translate([0, 4*cornerThickness, 0])
+        cube([4*cornerThickness, cornerThickness, enclosureHeight - cornerThickness]);
+      cube([5*cornerThickness, 4*cornerThickness, enclosureHeight - cornerThickness]);
+      translate([4*cornerThickness, 4*cornerThickness, 0])
+        cylinder(r = cornerThickness, enclosureHeight - cornerThickness, $fn = faces);
     }
   }
 }
