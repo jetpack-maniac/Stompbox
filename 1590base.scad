@@ -28,11 +28,14 @@ rightSideJacks = 0;
 topRowHoles = 1;
 bottomRowHoles = 2;
 switchHoles = 1;
+ledHoles = 2;
 
 topRowHorizontalAlign = 50; // percentage of shift side to side, 50 is centered
 bottomRowHorizontalAlign = 50; // percentage of shift side to side, 50 is centered
 topRowVerticalAlign = 90;  // percentage of shift up, 80 is close to the top
 bottomRowVerticalAlign = 70; // percentage of shift up, 60 is just above center
+ledHorizontalAlign = 50; // percentage of shift side to side, 50 is centered
+ledVerticalAlign = 100; // percentage of shift up, 100 is on the edge
 
 topRowHoleSize = 10; // top row knob hole in mm
 bottomRowHoleSize = 10; // bottom row knob hole in mm
@@ -163,13 +166,18 @@ module screwTapping(type){
 module holePunch(){
   // this cuts the knob and switch holes in the case
   for(topHole = [1:topRowHoles]){
-    translate([topLength*(topRowVerticalAlign/100), (topWidth + 2*edge)*(topHole/(topRowHoles+1)), enclosureHeight - enclosureThickness - edge])
+    translate([topLength*(topRowVerticalAlign/100) + edge/2, (topWidth + 2*edge)*(topHole/(topRowHoles+1)), enclosureHeight - enclosureThickness - edge])
       cylinder(d = topRowHoleSize, h = enclosureThickness + edge, $fn = faces);
   }
 
   for(bottomHole = [1:bottomRowHoles]){
-    translate([topLength*(bottomRowVerticalAlign/100), (topWidth + 2*edge)*(bottomHole/(bottomRowHoles+1)), enclosureHeight - enclosureThickness - edge])
-      cylinder(d = topRowHoleSize, h = enclosureThickness + edge, $fn = faces);
+    translate([topLength*(bottomRowVerticalAlign/100) + edge/2, (topWidth + 2*edge)*(bottomHole/(bottomRowHoles+1)), enclosureHeight - enclosureThickness - edge])
+      cylinder(d = bottomRowHoleSize, h = enclosureThickness + edge, $fn = faces);
+  }
+
+  for(ledHole = [1:ledHoles]){
+    translate([topLength*(ledVerticalAlign/100) + edge/2, (topWidth + 2*edge)*(ledHole/(ledHoles+1)), enclosureHeight - enclosureThickness - edge])
+      cylinder(d = ledHoleSize, h = enclosureThickness + edge, $fn = faces);
   }
 }
 
