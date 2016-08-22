@@ -26,12 +26,14 @@ rightSideJacks = 1;
 // this covers the knobs and switches used
 // two rows of knobs are created and one row of switches
 topRowHoles = 1;
+midRowHoles = 1;
 bottomRowHoles = 2;
 switchHoles = 1;
 ledHoles = 2;
 
-topRowVerticalAlign = 90;  // percentage of shift up, 80 is close to the top
-bottomRowVerticalAlign = 70; // percentage of shift up, 60 is just above center
+topRowVerticalAlign = 90;  // percentage of shift up, 90 is close to the top
+midRowVerticalAlign = 75; // percentage of shift up, 75 is between the top and center
+bottomRowVerticalAlign = 60; // percentage of shift up, 60 is just above center
 ledVerticalAlign = 100; // percentage of shift up, 100 is on the edge
 
 // The horizontal align shifts the rows side to side.  WIP/Unused.
@@ -39,10 +41,11 @@ ledVerticalAlign = 100; // percentage of shift up, 100 is on the edge
 bottomRowHorizontalAlign = 50; // percentage of shift side to side, 50 is centered
 ledHorizontalAlign = 50; // percentage of shift side to side, 50 is centered*/
 
-topRowHoleSize = 7.5; // top row knob hole in mm, this is the standard size
-bottomRowHoleSize = 7.5; // bottom row knob hole in mm, this is the standard
+topRowHoleSize = 5; // top row knob hole in mm, this is the standard size for switches (other than footswitches)
+midRowHoleSize = 7.5; // mid row knob hole in mm, this is the standard size for pots
+bottomRowHoleSize = 7.5; // bottom row knob hole in mm, this is the standard size for pots
 switchHoleSize = 12; // the expected size in mm for standard footswitches
-ledHoleSize = 5; // LED holes in mm, this is the normal size
+ledHoleSize = 5; // LED holes in mm, this is the normal size for LEDs
 
 
 // variables used in the script
@@ -176,6 +179,11 @@ module holePunch(){
   for(bottomHole = [1:bottomRowHoles]){
     translate([topLength*(bottomRowVerticalAlign/100) + edge/2, (topWidth + 2*edge)*(bottomHole/(bottomRowHoles+1)), enclosureHeight - enclosureThickness - edge])
       cylinder(d = bottomRowHoleSize, h = enclosureThickness + edge, $fn = faces);
+  }
+
+  for(midHole = [1:midRowHoles]){
+    translate([topLength*(midRowVerticalAlign/100) + edge/2, (topWidth + 2*edge)*(midHole/(midRowHoles+1)), enclosureHeight - enclosureThickness - edge])
+      cylinder(d = midRowHoleSize, h = enclosureThickness + edge, $fn = faces);
   }
 
   for(ledHole = [1:ledHoles]){
