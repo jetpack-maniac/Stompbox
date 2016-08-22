@@ -10,7 +10,8 @@ enclosureLength = 112; // length along x axis
 enclosureWidth = 60; // width along y axis
 enclosureHeight = 38; // enclosureHeight along z axis
 enclosureThickness = 2; // this is the thickness of each side
-roundness = 1; // this is degree of roundness the corners get
+roundness = 2; // this is degree of roundness the corners get
+faces = 40; // this is how detailed the curved edges get
 
 // This covers the inputs and outputs of the box
 jackSize = 0;
@@ -48,15 +49,38 @@ module enclosureBase(){
 
     // replace the cut side corners with rounded edges
     translate([edge, edge, 0])
-      cylinder(r = edge, enclosureHeight - edge);
+      cylinder(r = edge, enclosureHeight - edge, $fn = faces);
     translate([enclosureLength - edge, edge, 0])
-      cylinder(r = edge, enclosureHeight - edge);
+      cylinder(r = edge, enclosureHeight - edge, $fn = faces);
     translate([edge, enclosureWidth-edge, 0])
-      cylinder(r = edge, enclosureHeight - edge);
+      cylinder(r = edge, enclosureHeight - edge, $fn = faces);
     translate([enclosureLength - edge, enclosureWidth - edge, 0])
-      cylinder(r = edge, enclosureHeight - edge);
+      cylinder(r = edge, enclosureHeight - edge, $fn = faces);
 
     // replace the cut top corners with rounded edges
+    translate([edge, edge, enclosureHeight - edge])
+      sphere(r = edge, $fn = faces);
+    translate([enclosureLength - edge, edge, enclosureHeight - edge])
+      sphere(r = edge, $fn = faces);
+    translate([edge, enclosureWidth-edge, enclosureHeight - edge])
+      sphere(r = edge, $fn = faces);
+    translate([enclosureLength - edge, enclosureWidth - edge, enclosureHeight - edge])
+      sphere(r = edge, $fn = faces);
+
+    // this lays the long curved edges, starts with origin going CCW
+    translate([edge, edge, enclosureHeight - edge])
+    rotate([0,90,0])
+      cylinder(r = edge, enclosureLength - 2*edge, $fn = faces);
+    translate([enclosureLength - edge, edge, enclosureHeight - edge])
+    rotate([270,0,0])
+      cylinder(r = edge, enclosureWidth - 2*edge, $fn = faces);
+    translate([enclosureLength - edge, enclosureWidth - edge, enclosureHeight - edge])
+    rotate([0,270,0])
+      cylinder(r = edge, enclosureLength - 2*edge, $fn = faces);
+    translate([edge, enclosureWidth-edge, enclosureHeight - edge])
+    rotate([90,0,0])
+      cylinder(r = edge, enclosureWidth - 2*edge, $fn = faces);
+
 }
 
 // Final Assembly
