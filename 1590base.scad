@@ -94,7 +94,7 @@ module mainBodyCut(){
 module supportConstructor(type){
 
   if(type == "corner"){
-    cornerThickness = 2;
+    cornerThickness = 1.25;
     union(){
       translate([0, 4*cornerThickness, 0])
         cube([4*cornerThickness, cornerThickness, enclosureHeight - cornerThickness]);
@@ -108,13 +108,19 @@ module supportConstructor(type){
 
 module interiorConstructor(){
 
-  // this adds the corner posts and requests screw tapping on them
+  // this adds the corner posts (order CCW) and requests screw tapping on them
 
-  translate([3*enclosureThickness, 3*enclosureThickness, 0])
+  translate([enclosureThickness, enclosureThickness, 0])
      supportConstructor("corner");
-
-
-
+  translate([enclosureLength - enclosureThickness, enclosureThickness, 0])
+  rotate([0,0,90])
+    supportConstructor("corner");
+  translate([enclosureLength - enclosureThickness, enclosureWidth - enclosureThickness, 0])
+  rotate([0,0,180])
+    supportConstructor("corner");
+  translate([enclosureThickness, enclosureWidth - enclosureThickness, 0])
+  rotate([0,0,270])
+    supportConstructor("corner");
 }
 
 // Final Assembly
@@ -123,3 +129,5 @@ difference(){
   enclosureBase();
   mainBodyCut();
 }
+
+interiorConstructor();
