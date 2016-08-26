@@ -25,9 +25,9 @@ rightSideJacks = 1;
 
 // this covers the knobs and switches used
 // two rows of knobs are created and one row of switches
-topRowHoles = 0;
-midRowHoles = 0;
-bottomRowHoles = 2;
+topRowHoles = 1;
+midRowHoles = 2;
+bottomRowHoles = 1;
 switchHoles = 1;
 ledHoles = 2;
 
