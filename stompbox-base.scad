@@ -20,21 +20,21 @@ cornerThickness = 1.25;
 
 // This covers the inputs and outputs of the box
 jackSize = 10;  // 10mm is close to 3/8", which is the proper hole for 1/4" jacks
-leftSideJacks = 2;
+leftSideJacks = 1;
 rightSideJacks = 1;
 
 // this covers the knobs and switches used
 // two rows of knobs are created and one row of switches
-topRowHoles = 1;
-midRowHoles = 1;
+topRowHoles = 0;
+midRowHoles = 0;
 bottomRowHoles = 2;
 switchHoles = 1;
 ledHoles = 2;
 
-topRowVerticalAlign = 90;  // percentage of shift up, 90 is close to the top
-midRowVerticalAlign = 75; // percentage of shift up, 75 is between the top and center
-bottomRowVerticalAlign = 60; // percentage of shift up, 60 is just above center
-ledVerticalAlign = 100; // percentage of shift up, 100 is on the edge
+topRowVerticalAlign = 85;  // percentage of shift up, 90 is close to the top
+midRowVerticalAlign = 70; // percentage of shift up, 75 is between the top and center
+bottomRowVerticalAlign = 50; // percentage of shift up, 60 is just above center
+ledVerticalAlign = 95; // percentage of shift up, 100 is on the edge
 switchVerticalAlign = 20; // percentage of shift up, 20 is near the bottom
 
 // The horizontal align shifts the rows side to side.  WIP/Unused.
@@ -173,41 +173,55 @@ module screwTapping(type){
 
 module holePunch(){
   // this cuts the knob and switch holes in the case
-  for(topHole = [1:topRowHoles]){
-    translate([topLength*(topRowVerticalAlign/100) + edge/2, (topWidth + 2*edge)*(topHole/(topRowHoles+1)), enclosureHeight - enclosureThickness - edge])
-      cylinder(d = topRowHoleSize, h = enclosureThickness + edge, $fn = faces);
+  if(topRowHoles > 0){
+    for(topHole = [1:topRowHoles]){
+      translate([topLength*(topRowVerticalAlign/100) + edge/2, (topWidth + 2*edge)*(topHole/(topRowHoles+1)), enclosureHeight - enclosureThickness - edge])
+        cylinder(d = topRowHoleSize, h = enclosureThickness + edge, $fn = faces);
+    }
   }
 
-  for(bottomHole = [1:bottomRowHoles]){
-    translate([topLength*(bottomRowVerticalAlign/100) + edge/2, (topWidth + 2*edge)*(bottomHole/(bottomRowHoles+1)), enclosureHeight - enclosureThickness - edge])
-      cylinder(d = bottomRowHoleSize, h = enclosureThickness + edge, $fn = faces);
+  if(bottomRowHoles > 0){
+    for(bottomHole = [1:bottomRowHoles]){
+      translate([topLength*(bottomRowVerticalAlign/100) + edge/2, (topWidth + 2*edge)*(bottomHole/(bottomRowHoles+1)), enclosureHeight - enclosureThickness - edge])
+        cylinder(d = bottomRowHoleSize, h = enclosureThickness + edge, $fn = faces);
+    }
   }
 
-  for(midHole = [1:midRowHoles]){
-    translate([topLength*(midRowVerticalAlign/100) + edge/2, (topWidth + 2*edge)*(midHole/(midRowHoles+1)), enclosureHeight - enclosureThickness - edge])
-      cylinder(d = midRowHoleSize, h = enclosureThickness + edge, $fn = faces);
+  if(midRowHoles > 0){
+    for(midHole = [1:midRowHoles]){
+      translate([topLength*(midRowVerticalAlign/100) + edge/2, (topWidth + 2*edge)*(midHole/(midRowHoles+1)), enclosureHeight - enclosureThickness - edge])
+        cylinder(d = midRowHoleSize, h = enclosureThickness + edge, $fn = faces);
+    }
   }
 
-  for(ledHole = [1:ledHoles]){
-    translate([topLength*(ledVerticalAlign/100) + edge/2, (topWidth + 2*edge)*(ledHole/(ledHoles+1)), enclosureHeight - enclosureThickness - edge])
-      cylinder(d = ledHoleSize, h = enclosureThickness + edge, $fn = faces);
+  if(ledHoles > 0){
+    for(ledHole = [1:ledHoles]){
+      translate([topLength*(ledVerticalAlign/100) + edge/2, (topWidth + 2*edge)*(ledHole/(ledHoles+1)), enclosureHeight - enclosureThickness - edge])
+        cylinder(d = ledHoleSize, h = enclosureThickness + edge, $fn = faces);
+    }
   }
 
-  for(input = [1:leftSideJacks]){
-    translate([(topLength + edge)*(input/(leftSideJacks+1)), 0, (enclosureHeight - edge)/2])
-    rotate([270,0,0])
-      cylinder(d = jackSize, h = enclosureThickness + edge);
+  if(leftSideJacks > 0){
+    for(input = [1:leftSideJacks]){
+      translate([(topLength + edge)*(input/(leftSideJacks+1)), 0, (enclosureHeight - edge)/2])
+      rotate([270,0,0])
+        cylinder(d = jackSize, h = enclosureThickness + edge);
+    }
   }
 
-  for(output = [1:rightSideJacks]){
-    translate([(topLength + edge)*(output/(rightSideJacks+1)), enclosureWidth, (enclosureHeight - edge)/2])
-    rotate([90,0,0])
-      cylinder(d = jackSize, h = enclosureThickness + edge);
+  if(rightSideJacks > 0){
+    for(output = [1:rightSideJacks]){
+      translate([(topLength + edge)*(output/(rightSideJacks+1)), enclosureWidth, (enclosureHeight - edge)/2])
+      rotate([90,0,0])
+        cylinder(d = jackSize, h = enclosureThickness + edge);
+    }
   }
 
-  for(switch = [1:switchHoles]){
-    translate([topLength*(switchVerticalAlign/100) + edge/2, (topWidth + 2*edge)*(switch/(switchHoles+1)), enclosureHeight - enclosureThickness - edge])
-      cylinder(d = switchHoleSize, h = enclosureThickness + edge);
+  if(switch > 0){
+    for(switch = [1:switchHoles]){
+      translate([topLength*(switchVerticalAlign/100) + edge/2, (topWidth + 2*edge)*(switch/(switchHoles+1)), enclosureHeight - enclosureThickness - edge])
+        cylinder(d = switchHoleSize, h = enclosureThickness + edge);
+    }
   }
 
   translate([enclosureLength, enclosureWidth/2, (enclosureHeight - edge)/2])
