@@ -30,6 +30,7 @@ midRowHoles = 2;
 bottomRowHoles = 1;
 switchHoles = 1;
 ledHoles = 2;
+dcHole = true;
 
 topRowVerticalAlign = 85;  // percentage of shift up, 90 is close to the top
 midRowVerticalAlign = 70; // percentage of shift up, 75 is between the top and center
@@ -224,9 +225,11 @@ module holePunch(){
     }
   }
 
-  translate([enclosureLength, enclosureWidth/2, (enclosureHeight - edge)/2])
-  rotate([0,270,0])
-    cylinder(d = dcHoleSize, h = enclosureThickness + edge);
+  if(dcHole){
+    translate([enclosureLength, enclosureWidth/2, (enclosureHeight - edge)/2])
+    rotate([0,270,0])
+      cylinder(d = dcHoleSize, h = enclosureThickness + edge);
+  }
 }
 
 // Final Assembly
